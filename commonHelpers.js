@@ -1,2 +1,2 @@
-import"./assets/modulepreload-polyfill-ec808ebb.js";import"./assets/vendor-03f022f1.js";function n(o){const t=Math.floor(o/864e5),c=Math.floor(o%864e5/36e5),s=Math.floor(o%864e5%36e5/6e4),r=Math.floor(o%864e5%36e5%6e4/1e3);return{days:t,hours:c,minutes:s,seconds:r}}console.log(n(2e3));console.log(n(14e4));console.log(n(2414e4));
+import"./assets/modulepreload-polyfill-ec808ebb.js";import{f as r}from"./assets/vendor-e6f7761b.js";function t(o){const n=Math.floor(o/864e5),e=Math.floor(o%864e5/36e5),s=Math.floor(o%864e5%36e5/6e4),c=Math.floor(o%864e5%36e5%6e4/1e3);return{days:n,hours:e,minutes:s,seconds:c}}console.log(t(2e3));console.log(t(14e4));console.log(t(2414e4));const a={enableTime:!0,dateFormat:"Y-m-d H:i"};r("input",a);
 //# sourceMappingURL=commonHelpers.js.map
