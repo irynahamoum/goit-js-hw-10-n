@@ -87,6 +87,48 @@ fieldset {
   margin-inline-end: 0;
 }
 
+fieldset:hover {
+  border-color: #000;
+}
+
+fieldset label > input {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 32px;
+  /* position: relative; */
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  outline: none;
+}
+
+/* fieldset label > input::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 22px;
+  width: 22px;
+  background-image: url('../img/unchecked.svg');
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+fieldset label > input::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 22px;
+  width: 22px;
+  background-image: url('../img/checked.svg');
+  background-size: cover;
+  background-repeat: no-repeat;
+  opacity: 0;
+  transition: opacity 250ms ease-in-out;
+} */
+
 input[name='state'] {
   accent-color: #4e75ff;
 }

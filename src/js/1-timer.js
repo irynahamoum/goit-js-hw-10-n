@@ -1,14 +1,48 @@
 import flatpickr from 'flatpickr';
 import 'flatpickr/dist/flatpickr.min.css';
+import iziToast from 'izitoast';
+import 'izitoast/dist/css/iziToast.min.css';
 
 const dateInput = document.querySelector('#datetime-picker');
 const startButton = document.querySelector('[data-start]');
-const daysDisplay = document.querySelector('[data-days]');
-const hoursDisplay = document.querySelector('[data-hours]');
-const minutesDisplay = document.querySelector('[data-minutes]');
-const secondsDisplay = document.querySelector('[data-seconds]');
+
+const display = {
+  daysDisplay: document.querySelector('[data-days]'),
+  hoursDisplay: document.querySelector('[data-hours]'),
+  minutesDisplay: document.querySelector('[data-minutes]'),
+  secondsDisplay: document.querySelector('[data-seconds]'),
+};
 
 let userSelectedDate;
+
+startButton.addEventListener('click', () => {
+  startButton.disabled = true;
+  const interval = setInterval(() => {
+    const timeNow = Date.now();
+    const timeDifference = userSelectedDate - timeNow;
+    const formattedTime = convertMs(timeDifference);
+    displayDate(formattedTime);
+    console.log(timeDifference);
+    if (timeDifference < 1000) {
+      clearInterval(interval);
+    }
+  }, 1000);
+});
+
+// function countdownTime() {
+//   const timeNow = Date.now();
+//   const timeDifference = userSelectedDate - timeNow;
+//   const formattedTime = convertMs(timeDifference);
+//   console.log(formattedTime);
+//   return formattedTime;
+// }
+
+const displayDate = ({ days, hours, minutes, seconds }) => {
+  display.daysDisplay.textContent = String(days).padStart(2, 0);
+  display.hoursDisplay.textContent = String(hours).padStart(2, 0);
+  display.minutesDisplay.textContent = String(minutes).padStart(2, 0);
+  display.secondsDisplay.textContent = String(seconds).padStart(2, 0);
+};
 
 function convertMs(ms) {
   const second = 1000;
@@ -37,8 +71,20 @@ const extentions = {
   time_24hr: true,
   defaultDate: new Date(),
   minuteIncrement: 1,
+  maxDate: new Date().fp_incr(30),
   onClose(selectedDates) {
-    console.log(selectedDates[0]);
+    userSelectedDate = selectedDates[0];
+    if (!selectedDates[0]) return;
+    if (userSelectedDate < Date.now()) {
+      startButton.disabled = true;
+      iziToast.error({
+        title: 'Error',
+        message: 'Please choose a date in the future',
+        position: 'topRight',
+      });
+    } else {
+      startButton.disabled = false;
+    }
   },
 };
 
