@@ -85,23 +85,23 @@ fieldset {
   border-radius: 8px;
   margin-inline-start: 0;
   margin-inline-end: 0;
+  cursor: pointer;
 }
 
 fieldset:hover {
   border-color: #000;
 }
 
-fieldset label > input {
+/* fieldset label > input {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 32px;
-  /* position: relative; */
-  cursor: pointer;
-  display: flex;
+  height: 32px; */
+/* position: relative; */
+/* display: flex;
   align-items: center;
   outline: none;
-}
+} */
 
 /* fieldset label > input::before {
   content: '';
