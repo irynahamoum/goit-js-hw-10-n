@@ -45,20 +45,6 @@ body {
   transition-timing-function: linear;
 }
 
-[data-start] {
-  cursor: pointer;
-  color: #fff;
-  width: 75px;
-  font-size: 16px;
-  font-weight: 500;
-  line-height: 1.5;
-  letter-spacing: 0.04em;
-  padding: 8px 16px;
-  border-radius: 8px;
-  background: #4e75ff;
-  border: none;
-}
-
 .timer {
   display: flex;
   flex-direction: row;
@@ -101,6 +87,20 @@ body {
 
 #datetime-picker:disabled {
   border-color: #808080;
+}
+
+[data-start] {
+  cursor: pointer;
+  color: #fff;
+  width: 75px;
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 1.5;
+  letter-spacing: 0.04em;
+  padding: 8px 16px;
+  border-radius: 8px;
+  background: #4e75ff;
+  border: none;
 }
 
 [data-start]:hover,

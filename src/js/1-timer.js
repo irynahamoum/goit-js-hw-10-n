@@ -14,30 +14,38 @@ const display = {
 };
 
 let userSelectedDate;
+let intervalId;
+
+dateInput.addEventListener('change', () => {
+  const selectedDate = new Date(dateInput.value);
+  const currentDate = new Date();
+  if (!selectedDate) return;
+  if (selectedDate < currentDate) {
+    startButton.disabled = true;
+  } else {
+    startButton.disabled = false;
+  }
+
+  clearInterval(intervalId);
+  displayFormattedTime({ days: 0, hours: 0, minutes: 0, seconds: 0 });
+  // startButton.disabled = true;
+});
 
 startButton.addEventListener('click', () => {
   startButton.disabled = true;
-  const interval = setInterval(() => {
+  intervalId = setInterval(() => {
     const timeNow = Date.now();
     const timeDifference = userSelectedDate - timeNow;
     const formattedTime = convertMs(timeDifference);
-    displayDate(formattedTime);
+    displayFormattedTime(formattedTime);
     console.log(timeDifference);
     if (timeDifference < 1000) {
-      clearInterval(interval);
+      clearInterval(intervalId);
     }
   }, 1000);
 });
 
-// function countdownTime() {
-//   const timeNow = Date.now();
-//   const timeDifference = userSelectedDate - timeNow;
-//   const formattedTime = convertMs(timeDifference);
-//   console.log(formattedTime);
-//   return formattedTime;
-// }
-
-const displayDate = ({ days, hours, minutes, seconds }) => {
+const displayFormattedTime = ({ days, hours, minutes, seconds }) => {
   display.daysDisplay.textContent = String(days).padStart(2, 0);
   display.hoursDisplay.textContent = String(hours).padStart(2, 0);
   display.minutesDisplay.textContent = String(minutes).padStart(2, 0);
@@ -50,15 +58,10 @@ function convertMs(ms) {
   const hour = minute * 60;
   const day = hour * 24;
 
-  // Remaining days
   const days = Math.floor(ms / day);
-  // Remaining hours
   const hours = Math.floor((ms % day) / hour);
-  // Remaining minutes
   const minutes = Math.floor(((ms % day) % hour) / minute);
-  // Remaining seconds
   const seconds = Math.floor((((ms % day) % hour) % minute) / second);
-
   return { days, hours, minutes, seconds };
 }
 
@@ -66,25 +69,22 @@ console.log(convertMs(2000));
 console.log(convertMs(140000));
 console.log(convertMs(24140000));
 
-const extentions = {
+const options = {
   enableTime: true,
   time_24hr: true,
   defaultDate: new Date(),
   minuteIncrement: 1,
   maxDate: new Date().fp_incr(30),
+
   onClose(selectedDates) {
     userSelectedDate = selectedDates[0];
-    if (!selectedDates[0]) return;
-    if (userSelectedDate < Date.now()) {
-      startButton.disabled = true;
+    if (!userSelectedDate || userSelectedDate < Date.now()) {
       iziToast.error({
         message: 'Please choose a date in the future',
         position: 'topRight',
       });
-    } else {
-      startButton.disabled = false;
     }
   },
 };
 
-flatpickr('input#datetime-picker', extentions);
+flatpickr('input#datetime-picker', options);
